@@ -53,6 +53,7 @@ public class PerhitunganDiskonFrame extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Aplikasi Perhitungan Diskon"));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Harga");
@@ -177,59 +178,87 @@ public class PerhitunganDiskonFrame extends javax.swing.JFrame {
             // Ambil harga dari txtHarga
             double harga = Double.parseDouble(txtHarga.getText());
 
-            // Validasi input kupon, jika ada
-            double kupon = 0;
-            if (!txtKupon.getText().isEmpty()) {
-                kupon = Double.parseDouble(txtKupon.getText());
-            }
+            // Ambil kode kupon dari txtKupon
+            String kodeKupon = txtKupon.getText().trim();
+
+            // Panggil fungsi untuk menghitung diskon berdasarkan kode kupon
+            double diskonKupon = hitungDiskonBerdasarkanKupon(kodeKupon);
 
             // Ambil nilai diskon dari comboBox (dalam bentuk persen)
             int diskonPersen = Integer.parseInt((String) cmbDiskon.getSelectedItem());
 
-            // Hitung nilai diskon
-            double diskon = (harga * diskonPersen) / 100;
+            // Hitung nilai diskon berdasarkan persentase dari JComboBox
+            double diskonComboBox = (harga * diskonPersen) / 100;
 
-            // Hitung harga setelah diskon
-            double hargaSetelahDiskon = harga - diskon;
+            // Harga setelah diskon ComboBox diterapkan
+            double hargaSetelahDiskonComboBox = harga - diskonComboBox;
 
-            // Kurangi harga setelah diskon dengan kupon, jika ada
-            double totalAkhir = hargaSetelahDiskon - kupon;
+            // Hitung diskon kupon berdasarkan harga setelah diskon ComboBox diterapkan
+            double diskonKuponValue = (hargaSetelahDiskonComboBox * diskonKupon) / 100;
 
-            // Tampilkan hasil perhitungan
-            txtHasilHitung.setText("Harga Asli: " + harga + "\n"
-                    + "Diskon: " + diskonPersen + "% (" + diskon + ")\n"
-                    + "Harga Setelah Diskon: " + hargaSetelahDiskon + "\n"
-                    + "Kupon: " + kupon + "\n"
-                    + "Total Akhir: " + totalAkhir);
+            // Harga akhir setelah diskon ComboBox dan diskon Kupon diterapkan
+            double hargaSetelahDiskon = hargaSetelahDiskonComboBox - diskonKuponValue;
+
+            // Format riwayat hasil perhitungan
+            String hasil = "Harga Asli: " + harga + "\n"
+                    + "Diskon dari ComboBox: " + diskonPersen + "% (" + diskonComboBox + ")\n"
+                    + "Diskon Kupon: " + diskonKupon + "% (" + diskonKuponValue + ")\n"
+                    + "Harga Setelah Diskon ComboBox: " + hargaSetelahDiskonComboBox + "\n"
+                    + "Harga Setelah Diskon Kupon: " + hargaSetelahDiskon + "\n"
+                    + "----------------------------------------\n";
+
+            // Menambahkan hasil perhitungan ke dalam riwayat (append ke text area)
+            txtHasilHitung.append(hasil);
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Input tidak valid. Pastikan semua field terisi dengan benar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void syncDiskon() {
-    // Sinkronisasi dari JComboBox ke JSlider
-    cmbDiskon.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            // Ambil nilai diskon dari JComboBox
-            int diskon = Integer.parseInt((String) cmbDiskon.getSelectedItem());
-            // Set nilai slider sesuai dengan diskon yang dipilih
-            sliderDiskon.setValue(diskon);
-        }
-    });
+        // Sinkronisasi dari JComboBox ke JSlider
+        cmbDiskon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                // Ambil nilai diskon dari JComboBox
+                int diskon = Integer.parseInt((String) cmbDiskon.getSelectedItem());
+                // Set nilai slider sesuai dengan diskon yang dipilih
+                sliderDiskon.setValue(diskon);
+            }
+        });
 
-    // Sinkronisasi dari JSlider ke JComboBox
-    sliderDiskon.addChangeListener(new javax.swing.event.ChangeListener() {
-        public void stateChanged(javax.swing.event.ChangeEvent evt) {
-            // Ambil nilai diskon dari slider
-            int diskon = sliderDiskon.getValue();
-            // Set nilai JComboBox sesuai dengan nilai slider
-            cmbDiskon.setEditable(true);
-            cmbDiskon.setSelectedItem(String.valueOf(diskon));
-            cmbDiskon.setEditable(false);
-        }
-    });
-}
+        // Sinkronisasi dari JSlider ke JComboBox
+        sliderDiskon.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                // Ambil nilai diskon dari slider
+                int diskon = sliderDiskon.getValue();
+                // Set nilai JComboBox sesuai dengan nilai slider
+                cmbDiskon.setEditable(true);
+                cmbDiskon.setSelectedItem(String.valueOf(diskon));
+                cmbDiskon.setEditable(false);
+            }
+        });
+    }
 
+    // Fungsi untuk menghitung diskon berdasarkan kode kupon
+    private double hitungDiskonBerdasarkanKupon(String kodeKupon) {
+        // Cek apakah kode kupon valid dan tentukan diskonnya
+        double diskonKupon = 0;
+        switch (kodeKupon.toUpperCase()) {
+            case "DISC10":
+                diskonKupon = 10;  // Kupon "DISC10" memberikan diskon 10%
+                break;
+            case "SUMMER20":
+                diskonKupon = 20;  // Kupon "SUMMER20" memberikan diskon 20%
+                break;
+            case "HAPPY30":
+                diskonKupon = 30;  // Kupon "HAPPY30" memberikan diskon 30%
+                break;
+            default:
+                diskonKupon = 0;   // Jika kupon tidak dikenali, diskon 0%
+                break;
+        }
+        return diskonKupon;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
