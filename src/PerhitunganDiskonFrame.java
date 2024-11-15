@@ -1,8 +1,10 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author USER
@@ -14,6 +16,7 @@ public class PerhitunganDiskonFrame extends javax.swing.JFrame {
      */
     public PerhitunganDiskonFrame() {
         initComponents();
+        syncDiskon();
     }
 
     /**
@@ -24,22 +27,109 @@ public class PerhitunganDiskonFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtHasilHitung = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtHarga = new javax.swing.JTextField();
+        cmbDiskon = new javax.swing.JComboBox<>();
+        sliderDiskon = new javax.swing.JSlider();
+        txtKupon = new javax.swing.JTextField();
+        btnHitung = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Hasil Hitung"));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(240, 150));
+
+        txtHasilHitung.setColumns(20);
+        txtHasilHitung.setLineWrap(true);
+        txtHasilHitung.setRows(5);
+        jScrollPane1.setViewportView(txtHasilHitung);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setText("Harga");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel1, gridBagConstraints);
+
+        jLabel2.setText("Diskon");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel2, gridBagConstraints);
+
+        jLabel3.setText("Kupon");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(txtHarga, gridBagConstraints);
+
+        cmbDiskon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "20", "25", "50" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(cmbDiskon, gridBagConstraints);
+
+        sliderDiskon.setMajorTickSpacing(10);
+        sliderDiskon.setPaintLabels(true);
+        sliderDiskon.setPaintTicks(true);
+        sliderDiskon.setValue(10);
+        sliderDiskon.setPreferredSize(new java.awt.Dimension(100, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(sliderDiskon, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(txtKupon, gridBagConstraints);
+
+        btnHitung.setText("Hitung");
+        btnHitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHitungActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(btnHitung, gridBagConstraints);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+        hitungDiskon();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHitungActionPerformed
 
     /**
      * @param args the command line arguments
@@ -76,6 +166,83 @@ public class PerhitunganDiskonFrame extends javax.swing.JFrame {
         });
     }
 
+    private void hitungDiskon() {
+        try {
+            // Validasi input harga tidak kosong
+            if (txtHarga.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Harga tidak boleh kosong.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;  // Keluar dari method jika harga kosong
+            }
+
+            // Ambil harga dari txtHarga
+            double harga = Double.parseDouble(txtHarga.getText());
+
+            // Validasi input kupon, jika ada
+            double kupon = 0;
+            if (!txtKupon.getText().isEmpty()) {
+                kupon = Double.parseDouble(txtKupon.getText());
+            }
+
+            // Ambil nilai diskon dari comboBox (dalam bentuk persen)
+            int diskonPersen = Integer.parseInt((String) cmbDiskon.getSelectedItem());
+
+            // Hitung nilai diskon
+            double diskon = (harga * diskonPersen) / 100;
+
+            // Hitung harga setelah diskon
+            double hargaSetelahDiskon = harga - diskon;
+
+            // Kurangi harga setelah diskon dengan kupon, jika ada
+            double totalAkhir = hargaSetelahDiskon - kupon;
+
+            // Tampilkan hasil perhitungan
+            txtHasilHitung.setText("Harga Asli: " + harga + "\n"
+                    + "Diskon: " + diskonPersen + "% (" + diskon + ")\n"
+                    + "Harga Setelah Diskon: " + hargaSetelahDiskon + "\n"
+                    + "Kupon: " + kupon + "\n"
+                    + "Total Akhir: " + totalAkhir);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Input tidak valid. Pastikan semua field terisi dengan benar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void syncDiskon() {
+    // Sinkronisasi dari JComboBox ke JSlider
+    cmbDiskon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            // Ambil nilai diskon dari JComboBox
+            int diskon = Integer.parseInt((String) cmbDiskon.getSelectedItem());
+            // Set nilai slider sesuai dengan diskon yang dipilih
+            sliderDiskon.setValue(diskon);
+        }
+    });
+
+    // Sinkronisasi dari JSlider ke JComboBox
+    sliderDiskon.addChangeListener(new javax.swing.event.ChangeListener() {
+        public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            // Ambil nilai diskon dari slider
+            int diskon = sliderDiskon.getValue();
+            // Set nilai JComboBox sesuai dengan nilai slider
+            cmbDiskon.setEditable(true);
+            cmbDiskon.setSelectedItem(String.valueOf(diskon));
+            cmbDiskon.setEditable(false);
+        }
+    });
+}
+
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHitung;
+    private javax.swing.JComboBox<String> cmbDiskon;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSlider sliderDiskon;
+    private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextArea txtHasilHitung;
+    private javax.swing.JTextField txtKupon;
     // End of variables declaration//GEN-END:variables
 }
